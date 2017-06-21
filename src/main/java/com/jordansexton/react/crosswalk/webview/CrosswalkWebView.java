@@ -168,34 +168,38 @@ class CrosswalkWebView extends XWalkView implements LifecycleEventListener {
             ((CrosswalkWebView) view).callInjectedJavaScript();
 
             XWalkNavigationHistory navigationHistory = view.getNavigationHistory();
-            eventDispatcher.dispatchEvent(
-                new NavigationStateChangeEvent(
-                    getId(),
-                    SystemClock.uptimeMillis(),
-                    view.getTitle(),
-                    false,
-                    url,
-                    navigationHistory.canGoBack(),
-                    navigationHistory.canGoForward()
-                )
-            );
+            if (navigationHistory != null) {
+                eventDispatcher.dispatchEvent(
+                    new NavigationStateChangeEvent(
+                        getId(),
+                        SystemClock.uptimeMillis(),
+                        view.getTitle(),
+                        false,
+                        url,
+                        navigationHistory.canGoBack(),
+                        navigationHistory.canGoForward()
+                    )
+                );
+            }
 
         }
 
         @Override
         public void onLoadStarted (XWalkView view, String url) {
             XWalkNavigationHistory navigationHistory = view.getNavigationHistory();
-            eventDispatcher.dispatchEvent(
-                new NavigationStateChangeEvent(
-                    getId(),
-                    SystemClock.uptimeMillis(),
-                    view.getTitle(),
-                    true,
-                    url,
-                    navigationHistory.canGoBack(),
-                    navigationHistory.canGoForward()
-                )
-            );
+            if (navigationHistory != null) {
+                eventDispatcher.dispatchEvent(
+                    new NavigationStateChangeEvent(
+                        getId(),
+                        SystemClock.uptimeMillis(),
+                        view.getTitle(),
+                        true,
+                        url,
+                        navigationHistory.canGoBack(),
+                        navigationHistory.canGoForward()
+                    )
+                );
+            }
         }
 
         @Override
